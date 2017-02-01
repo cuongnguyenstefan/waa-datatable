@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+<meta charset='UTF-8' />
+<title>Login</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<table class="table table-bordered">
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Description</th>
+		</tr>
+		<ui:repeat value="#{tableData.products}" var="product">
+			<tr>
+				<td>#{product.id}</td>
+				<td>#{product.name}</td>
+				<td>#{product.description}</td>
+				<td>
+					<h:form>
+						<h:commandLink value="Delete"
+							action="#{tableData.deleteProduct(product)}" /> 
+					</h:form>
+				</td>
+				<td>
+					<h:form>
+						<h:commandLink value="Edit"
+							action="#{tableData.editProductPage(product)}" />
+					</h:form>
+				</td>
+			</tr>
+		</ui:repeat>
+		<h:form>
+			<tr>
+				<td><h:inputText value="#{tableData.product.id}"></h:inputText></td>
+				<td><h:inputText value="#{tableData.product.name}"></h:inputText></td>
+				<td><h:inputText value="#{tableData.product.description}"></h:inputText></td>
+				<td><h:commandButton value="Add" action="#{tableData.addProduct}" /></td>
+			</tr>
+		</h:form>
+	</table>
+</body>
+</html>
