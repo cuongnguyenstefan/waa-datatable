@@ -11,6 +11,8 @@ public class Product implements Serializable {
 	private String name;
 
 	private String description;
+	
+	private boolean edit;
 
 	public String getId() {
 		return id;
@@ -44,6 +46,14 @@ public class Product implements Serializable {
 			return p.id.equals(this.id);
 		}
 		return false;
+	}
+
+	public boolean getEdit() {
+		return edit;
+	}
+
+	public void setEdit(boolean edit) {
+		this.edit = edit;
 	}
 
 }

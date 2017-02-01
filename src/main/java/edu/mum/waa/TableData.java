@@ -28,7 +28,6 @@ public class TableData implements Serializable {
 	}
 	
 	public String editProductPage(Product p) {
-		product = p;
 		return "edit";
 	}
 	

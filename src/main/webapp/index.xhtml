@@ -8,44 +8,59 @@
 <title>Login</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<h:dataTable class="table table-bordered" value="#{tableData.products}"
+		var="product">
+		<h:form>
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+				<h:inputText value="#{product.name}" rendered="#{product.edit}" />
+				<h:outputText value="#{product.name}" rendered="#{not product.edit}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">ProductId</f:facet>
+				<h:inputText value="#{product.id}" rendered="#{product.edit}" />
+				<h:outputText value="#{product.id}" rendered="#{not product.edit}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Description</f:facet>
+				<h:inputText value="#{product.description}"
+					rendered="#{product.edit}" />
+				<h:outputText value="#{product.description}"
+					rendered="#{not product.edit}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Edit/Save</f:facet>
+				<h:commandButton class="btn btn-warning" value="Edit"
+					action="#{tableData.editProduct(product)}"
+					rendered="#{not product.edit}">
+				</h:commandButton>
+				<h:commandButton class="btn btn-success" value="Save"
+					action="#{tableData.saveProducts}" rendered="#{product.edit}">
+				</h:commandButton>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Delete</f:facet>
+				<h:commandButton class="btn btn-danger" value="Delete"
+					action="#{tableData.deleteProduct(product)}">
+				</h:commandButton>
+			</h:column>
+		</h:form>
+	</h:dataTable>
 	<table class="table table-bordered">
-		<tr>
-			<th>ID</th>
-			<th>Name</th>
-			<th>Description</th>
-		</tr>
-		<ui:repeat value="#{tableData.products}" var="product">
-			<tr>
-				<td>#{product.id}</td>
-				<td>#{product.name}</td>
-				<td>#{product.description}</td>
-				<td>
-					<h:form>
-						<h:commandLink value="Delete"
-							action="#{tableData.deleteProduct(product)}" /> 
-					</h:form>
-				</td>
-				<td>
-					<h:form>
-						<h:commandLink value="Edit"
-							action="#{tableData.editProductPage(product)}" />
-					</h:form>
-				</td>
-			</tr>
-		</ui:repeat>
 		<h:form>
 			<tr>
 				<td><h:inputText value="#{tableData.product.id}"></h:inputText></td>
 				<td><h:inputText value="#{tableData.product.name}"></h:inputText></td>
 				<td><h:inputText value="#{tableData.product.description}"></h:inputText></td>
-				<td><h:commandButton value="Add" action="#{tableData.addProduct}" /></td>
+				<td><h:commandButton value="Add"
+						action="#{tableData.addProduct}" /></td>
 			</tr>
 		</h:form>
 	</table>
