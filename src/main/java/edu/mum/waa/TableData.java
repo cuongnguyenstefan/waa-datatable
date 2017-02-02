@@ -13,34 +13,39 @@ public class TableData implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private List<Product> products;
+	
 	private Product product = new Product();
 
 	@Inject
-	private ProductRepository pr;
+	private ProductRepository productRepository;
 
 	public List<Product> getProducts() {
-		return pr.getProducts();
+		if (products == null) {
+			products = productRepository.getProducts();
+		}
+		return products;
 	}
 	
 	public String deleteProduct(Product p) {
-		pr.removeProduct(p);
+		productRepository.removeProduct(p);
 		return null;
 	}
 	
-	public String editProductPage(Product p) {
-		return "edit";
+	public String saveProducts() {
+		productRepository.updateProducts(products);
+		return "index?faces-redirect=true";
 	}
 	
-	public String editProduct() {
-		pr.editProduct(product);
-		product = new Product();
-		return "index";
+	public String editProduct(Product p) {
+		productRepository.setEditProduct(p);
+		return "index?faces-redirect=true";
 	}
 	
 	public String addProduct() {
-		pr.addProduct(product);
+		productRepository.addProduct(product);
 		product = new Product();
-		return null;
+		return "index?faces-redirect=true";
 	}
 
 	public Product getProduct() {
@@ -51,5 +56,8 @@ public class TableData implements Serializable {
 		this.product = product;
 	}
 	
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
 
 }

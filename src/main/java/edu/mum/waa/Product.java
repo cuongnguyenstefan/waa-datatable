@@ -48,7 +48,7 @@ public class Product implements Serializable {
 		return false;
 	}
 
-	public boolean getEdit() {
+	public boolean isEdit() {
 		return edit;
 	}
 
